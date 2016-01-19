@@ -14,8 +14,6 @@ router.get('/', function(req, res, next) {
 router.get('/refworks', function(req, res, next){
     var handle = req.query.handle;
     var host = req.query.host;
-    console.log(host);
-    console.log(handle);
 
     //Do a http request to the OAI-PMH provider and parse the xml to json.
     try {
@@ -30,9 +28,15 @@ router.get('/refworks', function(req, res, next){
             });
             response.on('end', function () {
                 parser.parseString(xml, function(err, result){
+
+                    //Use xml2js parser to parse kk-format xml, from OAI-PMH provider
                     var metadata = result['OAI-PMH']['GetRecord'][0].record[0].metadata[0]['kk:metadata'][0]['kk:field'];
                     var result = dc2rtf.map(metadata);
-                    res.render('metadata', {title: 'Refworks Tagged Format', metadata: result})
+
+                    //Extract authors from result, and give it as separate variable to the view
+                    var authors = result['A1'];
+                    delete result['A1'];
+                    res.render('metadata', {title: 'Refworks Tagged Format', metadata: result, authors: authors})
                 });
             });
         })

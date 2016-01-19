@@ -27,19 +27,35 @@ dc2rtf.map = function(metadata) {
             continue
         }
 
+        //Add LUT Publisher
+        if(elm === "contributor" && (value.indexOf("Lappeenrannan") > -1)){
+            console.log(value)
+            result['PB'] = value.split("/")[0];
+            continue;
+        }
+
+        //If tag is undefined, ignore it
         var tag = getTag(qual);
         if(tag === "undefined"){
             continue;
         }
 
-        if(qual === "iso"){
+        if(elm === "language" && qual === "iso"){
             value = getLangCode(value);
         }
 
+        //Add primary authors to a array
+        if(tag === "A1"){
+            var arr = result[tag] == undefined ? [] : result[tag];
+            arr.push(value);
+            console.log(arr)
+            result[tag] = arr;
+            continue;
+        }
 
-        //If the tag is not found, ignore it.
+        //If the tag is not empty, append the value to it
         if(result[tag] !== undefined){
-            result[tag] += value;
+            result[tag] += ", "+value;
         }else {
             result[tag] = value;
         }
