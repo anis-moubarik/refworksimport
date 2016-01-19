@@ -46,10 +46,8 @@ dc2rtf.map = function(metadata) {
 
         //Add primary authors to a array
         if(tag === "A1"){
-            var arr = result[tag] == undefined ? [] : result[tag];
-            arr.push(value);
-            console.log(arr)
-            result[tag] = arr;
+            result[tag] == undefined ? result[tag] = [value] : result[tag].push(value);
+            console.log(result[tag])
             continue;
         }
 
