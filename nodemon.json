@@ -1,0 +1,12 @@
+{
+  "ignore": [
+    ".git",
+    ".tern-port",
+    "/logs/",
+    "/data/",
+    "*.log",
+    "/public/*"
+  ],
+  "watch": ["*.*"],
+  "ext": "js jsx json css html"
+}
