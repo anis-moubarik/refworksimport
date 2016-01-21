@@ -11,7 +11,7 @@ router.get('/', function(req, res, next) {
     res.render('index', { title: 'api' });
 });
 
-router.get('/refworks', function(req, res, next){
+router.get('/q', function(req, res, next){
     var handle = req.query.handle;
     var host = req.query.host;
 
