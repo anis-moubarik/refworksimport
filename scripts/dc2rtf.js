@@ -77,4 +77,22 @@ dc2rtf.map = function(metadata, conf) {
     return result;
 };
 
+dc2rtf.maketext = function(data){
+    var text = "";
+
+    for(var key in data){
+        if (data[key].constructor === Array){
+            for(var i = 0; i < data[key].length; i++){
+                text += key + " " + data[key][i] + "\n"
+            }
+        }else{
+            text += key + " " + data[key]+"\n";
+        }
+    }
+
+    return text;
+
+
+};
+
 module.exports = dc2rtf;

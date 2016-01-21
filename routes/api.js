@@ -31,12 +31,8 @@ router.get('/q/:host/:handlepre/:handlepost', function(req, res, next){
                     var metadata = result['OAI-PMH']['GetRecord'][0].record[0].metadata[0]['kk:metadata'][0]['kk:field'];
                     var result = dc2rtf.map(metadata);
 
-                    //Extract authors from result, and give it as separate variable to the view
-                    var authors = result['A1'];
-                    var keywords = result['K1'];
-                    delete result['A1'];
-                    delete result['K1'];
-                    res.render('metadata', {title: 'Refworks Tagged Format', metadata: result, authors: authors, keywords: keywords})
+                    res.writeHead(200, {'Content-Type': 'text/plain; charset=utf-8'});
+                    res.write(dc2rtf.maketext(result));
                 });
             });
         })
