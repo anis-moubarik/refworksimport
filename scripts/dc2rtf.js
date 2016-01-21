@@ -10,7 +10,7 @@ dc2rtf.map = function(metadata, conf) {
         var qual = metadata[i]['$'].qualifier;
         var elm = metadata[i]['$'].element;
         var lang = metadata[i]['$'].language;
-        var value = metadata[i]['$'].value;
+        var value = metadata[i]['$'].value.replace(/\r?\n|\r/g, "");
 
         if(elm === "type" && lang === "en"){
             if(value === "Master's thesis"){
@@ -76,46 +76,5 @@ dc2rtf.map = function(metadata, conf) {
 
     return result;
 };
-
-
-/*function getTag(dcfield){
-    switch(dcfield) {
-        case "author":
-            return "A1";
-        case "issued":
-            return "YR";
-        case "uri":
-            return "UL";
-        case "abstract":
-            return "AB";
-        case "title":
-            return "T1";
-        case "volume":
-            return "VO"
-        case "iso":
-            return "LA";
-        case "type":
-            return "RT";
-        case "issn":
-            return "SN";
-        case "isbn":
-            return "SN";
-        case "subject":
-            return "K1";
-        default:
-            return "undefined";
-    }
-}
-
-function getLangCode(lang){
-    switch(lang){
-        case "fi":
-            return "Finnish(32)";
-        case "en":
-            return "English(30)";
-    }
-
-
-}*/
 
 module.exports = dc2rtf;

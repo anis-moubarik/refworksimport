@@ -36,6 +36,7 @@ router.get('/q', function(req, res, next){
                     var keywords = result['K1'];
                     delete result['A1'];
                     delete result['K1'];
+                    console.log(result['AB']);
                     res.render('metadata', {title: 'Refworks Tagged Format', metadata: result, authors: authors, keywords: keywords})
                 });
             });
