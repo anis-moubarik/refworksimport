@@ -11,9 +11,9 @@ router.get('/', function(req, res, next) {
     res.render('index', { title: 'api' });
 });
 
-router.get('/q', function(req, res, next){
-    var handle = req.query.handle;
-    var host = req.query.host;
+router.get('/q/:host/:handlepre/:handlepost', function(req, res, next){
+    var handle = req.params.handlepre + "/" + req.params.handlepost;
+    var host = req.params.host;
 
     //Do a http request to the OAI-PMH provider and parse the xml to json using xml2js.
     try {
@@ -36,7 +36,6 @@ router.get('/q', function(req, res, next){
                     var keywords = result['K1'];
                     delete result['A1'];
                     delete result['K1'];
-                    console.log(result['AB']);
                     res.render('metadata', {title: 'Refworks Tagged Format', metadata: result, authors: authors, keywords: keywords})
                 });
             });
