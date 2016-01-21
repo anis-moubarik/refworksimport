@@ -33,6 +33,7 @@ router.get('/q/:host/:handlepre/:handlepost', function(req, res, next){
 
                     res.writeHead(200, {'Content-Type': 'text/plain; charset=utf-8'});
                     res.write(dc2rtf.maketext(result));
+                    res.end();
                 });
             });
         })
