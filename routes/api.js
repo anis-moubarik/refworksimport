@@ -33,8 +33,10 @@ router.get('/refworks', function(req, res, next){
 
                     //Extract authors from result, and give it as separate variable to the view
                     var authors = result['A1'];
+                    var keywords = result['K1'];
                     delete result['A1'];
-                    res.render('metadata', {title: 'Refworks Tagged Format', metadata: result, authors: authors})
+                    delete result['K1'];
+                    res.render('metadata', {title: 'Refworks Tagged Format', metadata: result, authors: authors, keywords: keywords})
                 });
             });
         })

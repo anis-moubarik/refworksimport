@@ -1,0 +1,19 @@
+{
+  "mapping": {
+    "author": "A1",
+    "issued": "YR",
+    "uri": "UL",
+    "abstract": "AB",
+    "title": "T1",
+    "volume": "VO",
+    "iso": "LA",
+    "type": "RT",
+    "issn": "SN",
+    "isbn": "SN",
+    "subject": "K1"
+  },
+  "lang": {
+    "fi": "Finnish(32)",
+    "en": "English(30)"
+  }
+}
