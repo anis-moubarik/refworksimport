@@ -22,8 +22,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/refworks', routes);
 app.use('/refworks/api/', api);
+app.use('/refworks', routes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
