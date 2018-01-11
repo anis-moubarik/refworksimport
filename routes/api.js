@@ -29,7 +29,6 @@ router.get('/q/:host/:handlepre/:handlepost', function(req, res, next){
             response.on('end', function () {
                 parser.parseString(xml, function(err, result){
                     var metadata = result['OAI-PMH']['GetRecord'][0].record[0].metadata[0]['kk:metadata'][0]['kk:field'];
-                    console.log(metadata);
                     var result = dc2rtf.map(metadata);
 
                     res.writeHead(200, {'Content-Type': 'text/plain; charset=utf-8'});

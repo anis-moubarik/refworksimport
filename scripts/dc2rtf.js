@@ -26,8 +26,8 @@ dc2rtf.map = function(metadata, conf) {
         }
 
         if(elm === "publisher"){
-            result['PB'] = value;
-            continue
+            result['PB'] = cleanpublisher(value);
+            continue;
         }
 
         //Add Keywords
@@ -50,7 +50,7 @@ dc2rtf.map = function(metadata, conf) {
         }
 
         if(elm === "language" && qual === "iso"){
-            value = config.lang[value];
+            value = typeof config.lang[value] == 'undefined' ? "Finnish(32)" : config.lang[value];
         }
 
         //Add primary authors to a array
@@ -93,6 +93,24 @@ dc2rtf.maketext = function(data){
     return text;
 
 
+};
+
+String.prototype.replaceAll = function(search, replacement) {
+    var target = this;
+    return target.replace(new RegExp(search, 'g'), replacement);
+}
+
+
+function cleanpublisher(publisherstring){
+    var pubarray = publisherstring.split("|");
+    pubarray.pop();
+    var publishers = [];
+    for (var pub in pubarray){
+        var pubstring = pubarray[pub].replaceAll("fi=", "");
+        pubstring = pubstring.replaceAll("en=", "");
+        publishers.push(pubstring);
+    }
+    return publishers;
 };
 
 module.exports = dc2rtf;
