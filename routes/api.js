@@ -28,6 +28,11 @@ router.get('/q/:host/:handlepre/:handlepost', function(req, res, next){
             });
             response.on('end', function () {
                 parser.parseString(xml, function(err, result){
+                    if(typeof result['OAI-PMH']['GetRecord'] == 'undefined'){
+                        res.write("invalid xml");
+                        res.end();
+                        return;
+                    }
                     var metadata = result['OAI-PMH']['GetRecord'][0].record[0].metadata[0]['kk:metadata'][0]['kk:field'];
                     var result = dc2rtf.map(metadata);
 
