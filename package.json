@@ -8,6 +8,7 @@
   "dependencies": {
     "body-parser": "~1.13.2",
     "cookie-parser": "~1.3.5",
+    "dc2rtf": "git://github.com/anis-moubarik/dc2rtf.git",
     "debug": "~2.2.0",
     "express": "~4.13.1",
     "hbs": "~3.1.0",
