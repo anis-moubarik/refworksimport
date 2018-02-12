@@ -57,7 +57,7 @@ dc2rtf.map = function(metadata, conf) {
         }
 
         // Pagerange
-        if(elm == "format" && qual === "pagerange"){
+        if(elm === "format" && qual === "pagerange"){
             var pages = value.split("-");
             result['SP'] = pages[0];
             result['OP'] = pages[1];
