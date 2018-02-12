@@ -12,21 +12,34 @@ dc2rtf.map = function(metadata, conf) {
         var lang = metadata[i]['$'].language;
         var value = metadata[i]['$'].value.replace(/\r?\n|\r/g, "");
 
+        // Get the type and add it to the result array
         if(elm === "type" && lang === "en"){
-            if(value === "Master's thesis"){
+            if(value.indexOf("thesis") > -1){
                 result['RT'] = "Dissertation/Thesis";
-                continue;
+            }else if(value.indexOf("abstract") > -1){
+                result['RT'] = "Abstract";
+            }else{
+                result['RT'] = "Generic";
             }
         }
 
-        //Some Edge cases
+        // Some Edge Cases
         if(elm === "title" && qual !== "alternative"){
             result['T1'] = value;
             continue;
         }
 
-        if(elm === "publisher"){
-            result['PB'] = cleanpublisher(value);
+        if(elm === "publisher" || elm === "organization"){
+            var cleanedpub = cleanpublisher(value);
+            //Check if the same publisher is in already
+            if(result['PB'] != undefined ){
+                if(result['PB'] === value || result['PB'].includes(value))
+                {
+                    continue;
+                }
+            }
+            // If there's more than one publisher we add it in to an array
+            result['PB'] == undefined ? result['PB'] = [value] : result['PB'].push(value);
             continue;
         }
 
@@ -43,8 +56,16 @@ dc2rtf.map = function(metadata, conf) {
             continue;
         }
 
+        // Pagerange
+        if(elm == "format" && qual === "pagerange"){
+            var pages = value.split("-");
+            result['SP'] = pages[0];
+            result['OP'] = pages[1];
+            continue;
+        }
+
         //If tag is undefined, ignore it
-        var tag = config.mapping[qual]
+        var tag = config.mapping[qual];
         if(tag === undefined){
             continue;
         }
@@ -112,5 +133,6 @@ function cleanpublisher(publisherstring){
     }
     return publishers;
 };
+
 
 module.exports = dc2rtf;

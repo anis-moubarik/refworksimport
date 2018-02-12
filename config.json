@@ -10,13 +10,27 @@
     "type": "RT",
     "issn": "SN",
     "isbn": "SN",
-    "subject": "K1"
+    "subject": "K1",
+    "organization": "PB",
+    "publisher": "PB",
+    "editor": "A2",
+    "pagerange": "SP",
+    "doi": "DO",
+    "urn": "UL",
+    "place": "PP",
+    "ispartofjournal": "JF",
+    "ispartof": "T2",
+    "ispartofseries": "T3",
+    "issue": "IS",
+    "numberinseries": "IS"
   },
   "lang": {
     "fi": "Finnish(32)",
     "en": "English(30)",
+    "sv": "Swedish(126)",
     "fin": "Finnish(32)",
-    "eng": "English(30)"
+    "eng": "English(30)",
+    "sve": "Swedish(126)"
   },
   "handleprefix": "10024"
 }
