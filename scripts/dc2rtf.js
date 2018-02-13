@@ -38,8 +38,23 @@ dc2rtf.map = function(metadata, conf) {
                     continue;
                 }
             }
-            // If there's more than one publisher we add it in to an array
-            result['PB'] == undefined ? result['PB'] = [value] : result['PB'].push(value);
+
+            //Check if we have a string or an object
+            if(typeof cleanedpub == "string"){
+                result['PB'] == undefined ? result['PB'] = cleanedpub : result['PB'].push(cleanedpub);
+                continue;
+            }
+
+            //Check the language and if there's more than one publisher we add it in to an array
+            if(result['LA'] === 'English(30)') {
+                result['PB'] == undefined ? result['PB'] = [cleanedpub['en']] : result['PB'].push(cleanedpub['en']);
+            }
+            else if(result['LA'] === 'Finnish(32)') {
+                result['PB'] == undefined ? result['PB'] = [cleanedpub['fi']] : result['PB'].push(cleanedpub['sv']);
+            }
+            else if(result['LA'] === 'Swedish(126)') {
+                result['PB'] == undefined ? result['PB'] = [cleanedpub['sv']] : result['PB'].push(cleanedpub['sv']);
+            }
             continue;
         }
 
@@ -52,7 +67,7 @@ dc2rtf.map = function(metadata, conf) {
 
         //Add LUT Publisher
         if(elm === "contributor" && (value.indexOf("Lappeenrannan") > -1)){
-            result['PB'] = value.split("/")[0];
+            result['PB'] = [value.split("/")[0]];
             continue;
         }
 
@@ -123,16 +138,30 @@ String.prototype.replaceAll = function(search, replacement) {
 
 
 function cleanpublisher(publisherstring){
+    if(!isLocalizedString(publisherstring)){
+        return publisherstring;
+    }
     var pubarray = publisherstring.split("|");
     pubarray.pop();
-    var publishers = [];
+    var publishers = {};
     for (var pub in pubarray){
-        var pubstring = pubarray[pub].replaceAll("fi=", "");
-        pubstring = pubstring.replaceAll("en=", "");
-        publishers.push(pubstring);
+        if(pubarray[pub].includes('fi')){
+            publishers['fi'] = pubarray[pub].replaceAll("fi=", "");
+        } else if(pubarray[pub].includes('en')){
+            publishers['en'] = pubarray[pub].replaceAll("en=", "")
+        } else if(pubarray[pub].includes('sv')){
+            publishers['sv'] = pubarray[pub].replaceAll("sv=", "")
+        }
     }
     return publishers;
 };
+
+function isLocalizedString(s){
+    if(s.includes("fi=") || s.includes("en=") || s.includes("sv=")){
+        return true;
+    }
+    return false;
+}
 
 
 module.exports = dc2rtf;
