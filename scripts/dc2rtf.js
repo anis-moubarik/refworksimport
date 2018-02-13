@@ -79,6 +79,11 @@ dc2rtf.map = function(metadata, conf) {
             continue;
         }
 
+        // Add urn link
+        if(qual === "urn" || (qual === "uri" && value.includes("URN"))){
+            value = "http://urn.fi/"+value;
+        }
+
         //If tag is undefined, ignore it
         var tag = config.mapping[qual];
         if(tag === undefined){
@@ -104,9 +109,9 @@ dc2rtf.map = function(metadata, conf) {
 
         //If the tag is not empty, append the value to it
         if(result[tag] !== undefined){
-            result[tag] += ", "+value;
+            result[tag].push(value);
         }else {
-            result[tag] = value;
+            result[tag] = [value];
         }
     }
 
