@@ -14,7 +14,7 @@ dc2rtf.map = function(metadata, conf) {
 
         // Get the type and add it to the result array
         if(elm === "type" && lang === "en"){
-            if(value.indexOf("thesis") > -1){
+            if(value.includes("thesis") || value.includes("Bachelor's")){
                 result['RT'] = "Dissertation/Thesis";
             }else if(value.indexOf("abstract") > -1){
                 result['RT'] = "Abstract";
@@ -157,10 +157,8 @@ function cleanpublisher(publisherstring){
 };
 
 function isLocalizedString(s){
-    if(s.includes("fi=") || s.includes("en=") || s.includes("sv=")){
-        return true;
-    }
-    return false;
+    return !!(s.includes("fi=") || s.includes("en=") || s.includes("sv="));
+
 }
 
 
