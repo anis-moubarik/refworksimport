@@ -29,7 +29,7 @@ dc2rtf.map = function(metadata, conf) {
             continue;
         }
 
-        if(elm === "publisher" || elm === "organization"){
+        if((elm === "publisher" || elm === "organization") && qual === undefined){
             var cleanedpub = cleanpublisher(value);
             //Check if the same publisher is in already
             if(result['PB'] != undefined ){
@@ -41,6 +41,7 @@ dc2rtf.map = function(metadata, conf) {
 
             //Check if we have a string or an object
             if(typeof cleanedpub == "string"){
+                console.log(result['PB']);
                 result['PB'] == undefined ? result['PB'] = cleanedpub : result['PB'].push(cleanedpub);
                 continue;
             }
