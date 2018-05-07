@@ -2,7 +2,7 @@
   "mapping": {
     "author": "A1",
     "issued": "YR",
-    "uri": "LK",
+    "uri": "UL",
     "abstract": "AB",
     "title": "T1",
     "volume": "VO",
@@ -16,7 +16,7 @@
     "editor": "A2",
     "pagerange": "SP",
     "doi": "DO",
-    "urn": "UL",
+    "urn": "LK",
     "place": "PP",
     "ispartofjournal": "JF",
     "ispartof": "T2",
@@ -25,12 +25,12 @@
     "numberinseries": "IS"
   },
   "lang": {
-    "fi": "Finnish(32)",
-    "en": "English(30)",
-    "sv": "Swedish(126)",
-    "fin": "Finnish(32)",
-    "eng": "English(30)",
-    "sve": "Swedish(126)"
+    "fi": "Finnish",
+    "en": "English",
+    "sv": "Swedish",
+    "fin": "Finnish",
+    "eng": "English",
+    "sve": "Swedish"
   },
   "handleprefix": "10024"
 }

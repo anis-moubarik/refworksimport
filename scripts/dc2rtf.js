@@ -82,7 +82,7 @@ dc2rtf.map = function(metadata, conf) {
 
         // Add urn link
         if(qual === "uri" && value.includes("URN")){
-            result['UL'] = "http://urn.fi/"+value;
+            result['LK'] = "http://urn.fi/"+value;
             continue;
         }
 
