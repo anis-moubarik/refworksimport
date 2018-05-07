@@ -47,13 +47,13 @@ dc2rtf.map = function(metadata, conf) {
             }
 
             //Check the language and if there's more than one publisher we add it in to an array
-            if(result['LA'] === 'English(30)') {
+            if(result['LA'] === 'English') {
                 result['PB'] == undefined ? result['PB'] = [cleanedpub['en']] : result['PB'].push(cleanedpub['en']);
             }
-            else if(result['LA'] === 'Finnish(32)') {
+            else if(result['LA'] === 'Finnish') {
                 result['PB'] == undefined ? result['PB'] = [cleanedpub['fi']] : result['PB'].push(cleanedpub['sv']);
             }
-            else if(result['LA'] === 'Swedish(126)') {
+            else if(result['LA'] === 'Swedish') {
                 result['PB'] == undefined ? result['PB'] = [cleanedpub['sv']] : result['PB'].push(cleanedpub['sv']);
             }
             continue;
