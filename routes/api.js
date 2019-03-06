@@ -1,5 +1,5 @@
 var express = require('express');
-var http = require('http');
+var https = require('https');
 var xml2js = require('xml2js');
 var router = express.Router();
 var dc2rtf = require('../scripts/dc2rtf');
@@ -17,9 +17,9 @@ router.get('/q/:host/:handlepre/:handlepost', function(req, res, next){
 
     //Do a http request to the OAI-PMH provider and parse the xml to json using xml2js.
     try {
-        http.get({
+        https.get({
             hostname: host,
-            port: 80,
+            port: 443,
             path: "/oai/request?verb=GetRecord&metadataPrefix=kk&identifier=oai:" + host + ":" + handle
         }, function (response) {
             var xml = '';
