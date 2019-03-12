@@ -14,7 +14,8 @@ router.get('/', function(req, res, next) {
 router.get('/q/:host/:handlepre/:handlepost', function(req, res, next){
     var handle = req.params.handlepre + "/" + req.params.handlepost;
     var host = req.params.host;
-
+    if (host == "theseus.fi")
+	host = "www.theseus.fi";
     //Do a http request to the OAI-PMH provider and parse the xml to json using xml2js.
     try {
         https.get({
