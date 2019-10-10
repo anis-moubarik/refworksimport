@@ -2,8 +2,6 @@ kind: pipeline
 name: default
 
 steps:
-- name: generate-tags
-  image: quay.io/natlibfi/drone-gen-tags
 - name: build
   image: node:8
   pull: always
@@ -12,7 +10,7 @@ steps:
 - name: docker
   image: plugins/docker
   settings:
-    repo: quay.io/repository/anis_moubarik/refworksimport
+    repo: quay.io/repository/natlibfi/refworksimport:latest
     registry: quay.io
     username:
       from_secret: docker_username
