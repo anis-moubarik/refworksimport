@@ -10,7 +10,7 @@ steps:
 - name: docker
   image: plugins/docker
   settings:
-    repo: quay.io/repository/natlibfi/refworksimport:latest
+    repo: quay.io/repository/natlibfi/refworksimport
     registry: quay.io
     username:
       from_secret: docker_username
