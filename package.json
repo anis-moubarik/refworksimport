@@ -11,7 +11,7 @@
     "dc2rtf": "git://github.com/anis-moubarik/dc2rtf.git",
     "debug": "~2.6.9",
     "express": "~4.16.3",
-    "hbs": "^4.0.4",
+    "hbs": "^4.0.6",
     "morgan": "~1.9.1",
     "serve-favicon": "~2.5.0",
     "xml2js": "^0.4.16"
