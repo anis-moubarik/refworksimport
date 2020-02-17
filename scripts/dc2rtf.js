@@ -54,6 +54,8 @@ dc2rtf.map = function(metadata, conf) {
             }
             else if(result['LA'] === 'Swedish') {
                 result['PB'] == undefined ? result['PB'] = [cleanedpub['sv']] : result['PB'].push(cleanedpub['sv']);
+            } else {
+                result['PB'] == undefined ? result['PB'] = [cleanedpub['fi']] : result['PB'].push(cleanedpub['sv']);
             }
             continue;
         }
@@ -68,6 +70,23 @@ dc2rtf.map = function(metadata, conf) {
         //Add LUT Publisher
         if(elm === "contributor" && (value.indexOf("Lappeenrannan") > -1)){
             result['PB'] = [value.split("/")[0]];
+            continue;
+        }
+
+        //Add Theseus Publisher
+        if (elm === "contributor" && value.indexOf("fi=") > -1){
+            var cleanedpub = cleanpublisher(value);
+            if(result['LA'] === 'English') {
+                result['PB'] == undefined ? result['PB'] = [cleanedpub['en']] : result['PB'].push(cleanedpub['en']);
+            }
+            else if(result['LA'] === 'Finnish') {
+                result['PB'] == undefined ? result['PB'] = [cleanedpub['fi']] : result['PB'].push(cleanedpub['sv']);
+            }
+            else if(result['LA'] === 'Swedish') {
+                result['PB'] == undefined ? result['PB'] = [cleanedpub['sv']] : result['PB'].push(cleanedpub['sv']);
+            } else {
+                result['PB'] == undefined ? result['PB'] = [cleanedpub['fi']] : result['PB'].push(cleanedpub['sv']);
+            }
             continue;
         }
 
@@ -151,18 +170,14 @@ function cleanpublisher(publisherstring){
     if(!isLocalizedString(publisherstring)){
         return publisherstring;
     }
-    var pubarray = publisherstring.split("|");
-    pubarray.pop();
+    var firegex = /fi=[^|]+/gm;
+    var svregex = /sv=[^|]+/gm;
+    var enregex = /en=[^|]+/gm;
+
     var publishers = {};
-    for (var pub in pubarray){
-        if(pubarray[pub].includes('fi')){
-            publishers['fi'] = pubarray[pub].replaceAll("fi=", "");
-        } else if(pubarray[pub].includes('en')){
-            publishers['en'] = pubarray[pub].replaceAll("en=", "")
-        } else if(pubarray[pub].includes('sv')){
-            publishers['sv'] = pubarray[pub].replaceAll("sv=", "")
-        }
-    }
+    publishers["fi"] = publisherstring.match(firegex)[0].replaceAll("fi=", "");
+    publishers["sv"] = publisherstring.match(svregex)[0].replaceAll("sv=", "");
+    publishers["en"] = publisherstring.match(enregex)[0].replaceAll("en=", "");
     return publishers;
 };
 
