@@ -120,7 +120,13 @@ dc2rtf.map = function(metadata, conf) {
 
         //Add primary authors to a array
         if(tag === "A1"){
-            result[tag] == undefined ? result[tag] = [value] : result[tag].push(value);
+            //Due to Refworks bug the first author needs to be duplicated
+            if(result[tag] === undefined){
+                result[tag] = [value];
+                result[tag].push(value);
+            } else {
+                result[tag].push(value);
+            }
             continue;
         }
 
