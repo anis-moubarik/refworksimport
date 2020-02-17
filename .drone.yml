@@ -7,7 +7,7 @@ steps:
   pull: always
   commands:
   - npm install
-- name: docker
+- name: image_to_quay
   image: plugins/docker
   settings:
     repo: quay.io/natlibfi/refworksimport
@@ -16,9 +16,9 @@ steps:
     cache_from:
       - quay.io/natlibfi/refworksimport:latest
     username:
-      from_secret: docker_username
+      from_secret: quay_robouser
     password:
-      from_secret: docker_password
+      from_secret: quay_robopw
   when:
     branch: [master]
     event: [push, tag]
