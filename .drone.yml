@@ -10,11 +10,11 @@ steps:
 - name: image_to_quay
   image: plugins/docker
   settings:
-    repo: quay.io/natlibfi/refworksimport
+    repo: quay.io/anis_moubarik/refworksimport
     registry: quay.io
     tags: [latest]
     cache_from:
-      - quay.io/natlibfi/refworksimport:latest
+      - quay.io/anis_moubarik/refworksimport:latest
     username:
       from_secret: quay_robouser
     password:
