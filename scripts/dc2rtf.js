@@ -41,7 +41,7 @@ dc2rtf.map = function(metadata, conf) {
 
             //Check if we have a string or an object
             if(typeof cleanedpub == "string"){
-                result['PB'] == undefined ? result['PB'] = cleanedpub : result['PB'].push(cleanedpub);
+                result['PB'] == undefined ? result['PB'] = [cleanedpub] : result['PB'].push(cleanedpub);
                 continue;
             }
 
