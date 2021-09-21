@@ -1,16 +1,16 @@
 
-var dc2rtf = {};
+let dc2rtf = {};
 
-var config;
+let config;
 
 dc2rtf.map = function(metadata, conf) {
     config = conf || require('../config.json');
     result = {};
-    for(var i = 0; i < metadata.length; i++){
-        var qual = metadata[i]['$'].qualifier;
-        var elm = metadata[i]['$'].element;
-        var lang = metadata[i]['$'].language;
-        var value = metadata[i]['$'].value.replace(/\r?\n|\r/g, "");
+    for(let i = 0; i < metadata.length; i++){
+        let qual = metadata[i]['$'].qualifier;
+        let elm = metadata[i]['$'].element;
+        let lang = metadata[i]['$'].language;
+        let value = metadata[i]['$'].value.replace(/\r?\n|\r/g, "");
 
         // Get the type and add it to the result array
         if(elm === "type" && lang === "en"){
@@ -30,7 +30,7 @@ dc2rtf.map = function(metadata, conf) {
         }
 
         if((elm === "publisher" || elm === "organization") && qual === undefined){
-            var cleanedpub = cleanpublisher(value);
+            let cleanedpub = cleanpublisher(value);
             //Check if the same publisher is in already
             if(result['PB'] != undefined ){
                 if(result['PB'] === value || result['PB'].includes(value))
@@ -62,7 +62,7 @@ dc2rtf.map = function(metadata, conf) {
 
         //Add Keywords
         if (elm === "subject"){
-            var keytag = config.mapping[elm];
+            let keytag = config.mapping[elm];
             result[keytag] == undefined ? result[keytag] = [value] : result[keytag].push(value);
             continue;
         }
@@ -75,7 +75,7 @@ dc2rtf.map = function(metadata, conf) {
 
         //Add Theseus Publisher
         if (elm === "contributor" && value.indexOf("fi=") > -1){
-            var cleanedpub = cleanpublisher(value);
+            let cleanedpub = cleanpublisher(value);
             if(result['LA'] === 'English') {
                 result['PB'] == undefined ? result['PB'] = [cleanedpub['en']] : result['PB'].push(cleanedpub['en']);
             }
@@ -92,7 +92,7 @@ dc2rtf.map = function(metadata, conf) {
 
         // Pagerange
         if(elm === "format" && qual === "pagerange"){
-            var pages = value.split("-");
+            let pages = value.split("-");
             result['SP'] = pages[0];
             result['OP'] = pages[1];
             continue;
@@ -109,7 +109,7 @@ dc2rtf.map = function(metadata, conf) {
         }
 
         //If tag is undefined, ignore it
-        var tag = config.mapping[qual];
+        let tag = config.mapping[qual];
         if(tag === undefined){
             continue;
         }
@@ -132,7 +132,7 @@ dc2rtf.map = function(metadata, conf) {
 
         //Clean the issued date
         if(tag === "YR"){
-            var yearArr = /^[12][0-9]{3}/.exec(value);
+            let yearArr = /^[12][0-9]{3}/.exec(value);
             result[tag] = yearArr[0];
             continue;
        }
@@ -149,11 +149,11 @@ dc2rtf.map = function(metadata, conf) {
 };
 
 dc2rtf.maketext = function(data){
-    var text = "";
+    let text = "";
 
-    for(var key in data){
+    for(let key in data){
         if (data[key].constructor === Array){
-            for(var i = 0; i < data[key].length; i++){
+            for(let i = 0; i < data[key].length; i++){
                 text += key + " " + data[key][i] + "\n"
             }
         }else{
@@ -167,7 +167,7 @@ dc2rtf.maketext = function(data){
 };
 
 String.prototype.replaceAll = function(search, replacement) {
-    var target = this;
+    let target = this;
     return target.replace(new RegExp(search, 'g'), replacement);
 };
 
@@ -176,11 +176,11 @@ function cleanpublisher(publisherstring){
     if(!isLocalizedString(publisherstring)){
         return publisherstring;
     }
-    var firegex = /fi=[^|]+/gm;
-    var svregex = /sv=[^|]+/gm;
-    var enregex = /en=[^|]+/gm;
+    let firegex = /fi=[^|]+/gm;
+    let svregex = /sv=[^|]+/gm;
+    let enregex = /en=[^|]+/gm;
 
-    var publishers = {};
+    let publishers = {};
     publishers["fi"] = publisherstring.match(firegex)[0].replaceAll("fi=", "");
     publishers["sv"] = publisherstring.match(svregex)[0].replaceAll("sv=", "");
     publishers["en"] = publisherstring.match(enregex)[0].replaceAll("en=", "");
