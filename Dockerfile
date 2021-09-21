@@ -12,4 +12,4 @@ EXPOSE 3000
 
 USER node
 
-CMD ["node > refworks_log.log 2> refworks_err_log.log", "bin/www"]
+CMD ["node", "bin/www"]
