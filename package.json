@@ -11,7 +11,7 @@
     "cookie-parser": "~1.3.5",
     "dc2rtf": "https://github.com/anis-moubarik/dc2rtf.git",
     "debug": "~2.6.9",
-    "express": "~4.17.3",
+    "express": "~4.19.2",
     "hbs": "^4.1.2",
     "morgan": "~1.9.1",
     "serve-favicon": "~2.5.0",
